@@ -11,4 +11,4 @@ let period
 
 alert('Hello');
 
-console.log('Слово');
+console.log('Слово в консоли');
