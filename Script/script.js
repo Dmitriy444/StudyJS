@@ -5,7 +5,7 @@
 let money = +prompt('Ваш месячный доход?');
 //let income = 'freelance';
 let addExpencess = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-let deposit = !!prompt('Есть ли у вас депозит в банке?');
+let deposit = confirm('Есть ли у вас депозит в банке?');
 let expencess1 = prompt('Введите обязательную статью расходов?');
 let amount1 = +prompt('Во сколько это обойдется?');
 let expencess2 = prompt('Введите обязательную статью расходов?'); 
