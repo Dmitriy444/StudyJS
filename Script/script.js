@@ -12,12 +12,39 @@ let expencess2 = prompt('Введите обязательную статью р
 let amount2 = +prompt('Во сколько это обойдется?');
 let mission = 200000;
 let Period = 5;
-let budgetMounth = money -= amount1 + amount2;
-let budgetDay = budgetMounth / 30; 
-let period = mission / budgetMounth;
 
 
-console.log(typeof money);
+let sum = 0;
+function getExpencessMonth(a, b){
+    sum = a + b;
+};
+getExpencessMonth(amount1, amount2);
+console.log(sum);
+
+
+ 
+let accumulatedMonth = 0;
+function getAccumulatedMonth(a, b, c){
+    console.log('сумма ' + a);
+    console.log('первый расход ' + b);
+    console.log('второй расход ' + c);
+    return accumulatedMonth = a - b - c;
+}; 
+getAccumulatedMonth(money, amount1, amount2);
+console.log(accumulatedMonth);
+// возможно надо исправить на отдельную переменную! 
+let budgetDay = accumulatedMonth / 30; 
+
+let target = 0; 
+function getTargetMonth(a, b){
+    return target = a / b;
+};
+getTargetMonth(mission, accumulatedMonth);
+console.log('Цель будет достигнута через ' + (Math.ceil(target)) + ' месяцев(-а)');
+
+
+
+console.log('сумма ' + money);
 console.log(typeof addExpencess);
 //console.log(typeof income);
 console.log(typeof deposit);
@@ -26,7 +53,7 @@ console.log('Период равен ' + Period + ' месяцев');
 console.log('Цель заработать ' + mission + ' рублей');
 console.log(expencess1 + ', ' + expencess2);
 console.log(addExpencess.toLowerCase().split(', '));
-console.log('Бюджет на месяц: ' + (budgetMounth));
+console.log('Бюджет на месяц: ' + (budgetMonth));
 console.log('Цель будет достигнута через ' + (Math.ceil(period)) + ' месяцев(-а)');
 console.log('Бюджет на день: ' + (Math.floor(budgetDay)));
 
