@@ -32,9 +32,9 @@ let  getExpencessMonth = function(a, b){
 function getAccumulatedMonth(a, b){
     return accumulatedMonth = a - b;
 };
-
-
 getAccumulatedMonth(money, getExpencessMonth());
+
+
 let getTargetMonth = function(a, b){
     return mission / accumulatedMonth;
 };
