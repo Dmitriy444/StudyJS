@@ -86,3 +86,4 @@ console.log('Сумма всех расходов за месяц составл
 console.log(addExpenses.toLowerCase().split(', '));
 console.log('Бюджет на день: ' + (Math.floor(budgetDay)));
 console.log(getStatusIncome(budgetDay));
+//просто добавил коммент
