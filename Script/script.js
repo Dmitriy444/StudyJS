@@ -21,7 +21,7 @@ let appData ={
     income: {},
     addIncome: [],
     expenses: {},
-    addExpencess: [],
+    addExpenses: [],
     deposit: false,
     percentDeposit: 0,
     moneyDeposit: 0,
@@ -132,7 +132,7 @@ let appData ={
     //console.log(String(appData.addExpenses));
    
    //console.log(a.prototype.join(', '));
-   console.log(appData.addExpencess.join(' '));
+   console.log(appData.addExpenses.join());
     //console.log('Бюджет на день ' + (Math.floor(appData.budgetDay)));
     //console.log('Бюджет на месяц ' + appData.getBudget);
 
