@@ -48,8 +48,9 @@ let appData ={
         return appData.expensesMonth;
         },
         getBudget: function(){
-            appData.getBudget = appData.budget - appData.expensesMonth;
-            appData.budgetDay = appData.getBudget / 30;
+            appData.budgetMonth = appData.budget - appData.expensesMonth;
+            appData.budgetDay = appData.budgetMonth / 30;
+            
         },
         getTargetMonth: function(){
             if (appData.mission / appData.getBudget < 0){
