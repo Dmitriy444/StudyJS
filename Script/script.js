@@ -44,8 +44,11 @@ let appData ={
             appData.income[itemIncome] = cashIncome;
         }
 
-        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-            appData.addExpenses = addExpenses.toLowerCase().split(', ');
+        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'one, two, three');
+            appData.addExpenses = addExpenses
+                .toLowerCase().split(', ')
+                .map(addExpenses => addExpenses.toLowerCase().trim().slice(0, 1).toUpperCase() + addExpenses.slice(1));
+ 
             appData.deposit = confirm('Есть ли у вас депозит в банке?');
              
             for (let i = 0; i < 2; i++) {
@@ -62,6 +65,7 @@ let appData ={
                 } 
                 
     },
+
     getExpensesMonth: function(){
         for(let key in appData.expenses){
             appData.expensesMonth += +appData.expenses[key];
@@ -74,10 +78,10 @@ let appData ={
             
         },
         getTargetMonth: function(){
-            if (appData.mission / appData.getBudget < 0){
+            if (appData.mission / appData.budgetMonth < 0){
                 return('Цель не будет достигнута');
-            } else if (appData.mission / appData.getBudget >= 0){
-                return('Цель будет достигнута через ' + (Math.ceil(appData.mission / appData.getBudget)) + ' месяца(-ев)');
+            } else if (appData.mission / appData.budgetMonth >= 0){
+                return('Цель будет достигнута через ' + (Math.ceil(appData.mission / appData.budgetMonth)) + ' месяца(-ев)');
             }
         },
         getStatusIncome: function(){
@@ -110,14 +114,10 @@ let appData ={
 
 };
 
-    
-
     appData.asking();
     appData.getExpensesMonth();
     appData.getBudget();
     appData.getInfoDeposit();
-     
-    //let a = String(appData.addExpencess);
 
     console.log('Расходы за месяц ' + appData.expensesMonth);
     console.log(appData.getTargetMonth());
@@ -126,17 +126,12 @@ let appData ={
     for (let key in appData){
         console.log('Ключ ' + key + ' Значение: ' + appData[key]);
     }
-
+    console.log(appData.addExpenses.join(', '));
     //appData.getInfoDeposit();
     //console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());
-    //console.log(String(appData.addExpenses));
-   
-   //console.log(a.prototype.join(', '));
-   console.log(appData.addExpenses.join());
     //console.log('Бюджет на день ' + (Math.floor(appData.budgetDay)));
     //console.log('Бюджет на месяц ' + appData.getBudget);
 
 
 
 
-   
