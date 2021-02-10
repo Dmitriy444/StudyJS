@@ -114,6 +114,29 @@ let appData ={
 
 };
 
+    const calculate = document.getElementById('start');
+    const plus = (document.getElementsByTagName('button')[0]);
+    const plus2 = (document.getElementsByTagName('button')[1]);
+    const checkbox = document.querySelector('#deposit-check');
+    const adIncome = document.querySelectorAll('.additional_income-item');
+    const value1 =  document.getElementsByClassName('budget_month-value');
+    const value2 =  document.getElementsByClassName('expenses_month-value');
+    const value3 =  document.getElementsByClassName('additional_income-value');
+    const value4 =  document.getElementsByClassName('additional_expenses-value');
+    const value5 =  document.getElementsByClassName('income_period-value');
+    const value6 =  document.getElementsByClassName('target_month-value');
+
+    const monthlyIncome = document.querySelector('.salary-amount');
+    const adIncomeTitle = document.querySelector('.income-title');
+    const adIncomeAmount = document.querySelector('.income-amount');
+    const titleIncome = (document.querySelector('[placeholder="Наименование"]'));
+    const titleIncome1 = (document.querySelector('[placeholder="Сумма"]'));
+    const titleExpenses = document.querySelector('.expenses-title');
+    const amountExpenses = document.querySelector('.expenses-amount');
+    const adExpensesTitle = document.querySelector('.additional_expenses-item');
+    const amountTarget = document.querySelector('.target-amount');
+    const periodSelect = document.querySelector('.period-select');
+
     appData.asking();
     appData.getExpensesMonth();
     appData.getBudget();
@@ -127,6 +150,28 @@ let appData ={
         console.log('Ключ ' + key + ' Значение: ' + appData[key]);
     }
     console.log(appData.addExpenses.join(', '));
+    console.log(calculate);
+    console.log(plus);
+    console.log(plus2);
+    console.log(checkbox);
+    console.log(adIncome);
+    console.log(value1);
+    console.log(value2);
+    console.log(value3);
+    console.log(value4);
+    console.log(value5);
+    console.log(value6);
+
+    console.log(monthlyIncome);
+    console.log(adIncomeTitle);
+    console.log(adIncomeAmount);
+    console.log(titleIncome);
+    console.log(titleIncome1);
+    console.log(titleExpenses);
+    console.log(amountExpenses);
+    console.log(adExpensesTitle);
+    console.log(amountTarget);
+    console.log(periodSelect);
     //appData.getInfoDeposit();
     //console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());
     //console.log('Бюджет на день ' + (Math.floor(appData.budgetDay)));
