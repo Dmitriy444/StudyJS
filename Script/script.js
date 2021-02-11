@@ -1,5 +1,6 @@
 'use strict';
-
+// коммент 2-180
+/*
 let isNumber = function(n){
     return !isNaN(parseFloat(n)) && isFinite(n)
 };
@@ -176,7 +177,7 @@ let appData ={
     //console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());
     //console.log('Бюджет на день ' + (Math.floor(appData.budgetDay)));
     //console.log('Бюджет на месяц ' + appData.getBudget);
-
+*/
 
 
 
