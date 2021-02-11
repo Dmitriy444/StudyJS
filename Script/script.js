@@ -115,16 +115,16 @@ let appData ={
 };
 
     const calculate = document.getElementById('start');
-    const plus = (document.getElementsByTagName('button')[0]);
-    const plus2 = (document.getElementsByTagName('button')[1]);
+    const incomeAddBtn = (document.getElementsByTagName('button')[0]);
+    const expensesAddBtn = (document.getElementsByTagName('button')[1]);
     const checkbox = document.querySelector('#deposit-check');
     const adIncome = document.querySelectorAll('.additional_income-item');
-    const value1 =  document.getElementsByClassName('budget_month-value');
-    const value2 =  document.getElementsByClassName('expenses_month-value');
-    const value3 =  document.getElementsByClassName('additional_income-value');
-    const value4 =  document.getElementsByClassName('additional_expenses-value');
-    const value5 =  document.getElementsByClassName('income_period-value');
-    const value6 =  document.getElementsByClassName('target_month-value');
+    const budgetMonthValue =  (document.getElementsByClassName('budget_month-value')[0]);
+    const expensesMonthValue =  (document.getElementsByClassName('expenses_month-value')[0]);
+    const adIncomeValue =  (document.getElementsByClassName('additional_income-value')[0]);
+    const adExpensesValue =  (document.getElementsByClassName('additional_expenses-value')[0]);
+    const incomePeriodValue =  (document.getElementsByClassName('income_period-value')[0]);
+    const targetMonthValue =  (document.getElementsByClassName('target_month-value')[0]);
 
     const monthlyIncome = document.querySelector('.salary-amount');
     const adIncomeTitle = document.querySelector('.income-title');
@@ -151,16 +151,16 @@ let appData ={
     }
     console.log(appData.addExpenses.join(', '));
     console.log(calculate);
-    console.log(plus);
-    console.log(plus2);
+    console.log(incomeAddBtn);
+    console.log(expensesAddBtn);
     console.log(checkbox);
     console.log(adIncome);
-    console.log(value1);
-    console.log(value2);
-    console.log(value3);
-    console.log(value4);
-    console.log(value5);
-    console.log(value6);
+    console.log(budgetMonthValue);
+    console.log(expensesMonthValue);
+    console.log(adIncomeValue);
+    console.log(adExpensesValue);
+    console.log(incomePeriodValue);
+    console.log(targetMonthValue);
 
     console.log(monthlyIncome);
     console.log(adIncomeTitle);
