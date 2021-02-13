@@ -40,11 +40,7 @@ let calculate = document.getElementById('start'),
         budgetMonth: 0,
         expensesMonth: 0,
         start: function (){
-            
-            if(salaryAmount.value === ''){
-                alert('Ошибка, поле "Месячный доход" должно быть');
-                return;
-            }
+            appData.checkStart();
             appData.budget = +salaryAmount.value;
             appData.getExpenses();
             appData.getIncome();
@@ -54,7 +50,6 @@ let calculate = document.getElementById('start'),
             appData.getBudget();
 
             appData.showResult();
-            //appData.getInfoDeposit();
         },
         showResult: function(){
             budgetMonthValue.value = appData.budgetMonth;
@@ -65,15 +60,17 @@ let calculate = document.getElementById('start'),
             targetMonthValue.value = Math.ceil(appData.getTargetMonth());
             incomePeriodValue.value = appData.calcSavedMoney();
 
-             
-
-            periodSelect.addEventListener('input', appData.dynamicSelect());
-            
-
-            
+            periodSelect.addEventListener('input', appData.dynamicSelect);
+        },
+        checkStart: function(){
+            if(salaryAmount.value === ''){
+                //alert('enter number!');
+                calculate.disabled = true;
+                return;
+            }
         },
         dynamicSelect: function(){
-            periodAmount.innerHTML = periodSelect.value;
+            incomePeriodValue.value = appData.calcSavedMoney();
         },
         addExpensesBlock: function(){
             let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -170,10 +167,7 @@ let calculate = document.getElementById('start'),
                 calcSavedMoney: function(){
                     return appData.budgetMonth * periodSelect.value;
                 },
-                /*
-                periodFunc:  function(){
-                    periodAmount.value = periodSelect.value;
-                }*/
+                
     
     };
 
@@ -184,7 +178,7 @@ let calculate = document.getElementById('start'),
     periodSelect.addEventListener('input', function(){
         periodAmount.innerHTML = periodSelect.value;
     });
-
+   
     /*
     console.log(appData.getTargetMonth());
     console.log('Наша программа включает в себя данные');
