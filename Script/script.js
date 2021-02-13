@@ -65,7 +65,15 @@ let calculate = document.getElementById('start'),
             targetMonthValue.value = Math.ceil(appData.getTargetMonth());
             incomePeriodValue.value = appData.calcSavedMoney();
 
+             
 
+            periodSelect.addEventListener('input', appData.dynamicSelect());
+            
+
+            
+        },
+        dynamicSelect: function(){
+            periodAmount.innerHTML = periodSelect.value;
         },
         addExpensesBlock: function(){
             let cloneExpensesItem = expensesItems[0].cloneNode(true);
@@ -120,8 +128,7 @@ let calculate = document.getElementById('start'),
                 }
             });
         },
-
-    
+        
         getExpensesMonth: function(){
             for(let key in appData.expenses){
                 appData.expensesMonth += +appData.expenses[key];
@@ -162,18 +169,22 @@ let calculate = document.getElementById('start'),
                 },
                 calcSavedMoney: function(){
                     return appData.budgetMonth * periodSelect.value;
-                }
+                },
+                /*
+                periodFunc:  function(){
+                    periodAmount.value = periodSelect.value;
+                }*/
     
     };
 
     start.addEventListener('click', appData.start);
     expensesAddBtn.addEventListener('click', appData.addExpensesBlock);
     incomeAddBtn.addEventListener('click', appData.addIncomeBlock);
-    periodSelect.addEventListener('change', function(){
-         periodAmount = periodSelect.value;
+
+    periodSelect.addEventListener('input', function(){
+        periodAmount.innerHTML = periodSelect.value;
     });
 
-    
     /*
     console.log(appData.getTargetMonth());
     console.log('Наша программа включает в себя данные');
