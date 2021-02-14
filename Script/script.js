@@ -1,6 +1,6 @@
 'use strict';
 
-let calculate = document.getElementById('start'),
+let calculate = document.getElementById('start').setAttribute('disabled', 'true'),
      incomeAddBtn = (document.getElementsByTagName('button')[0]),
      expensesAddBtn = (document.getElementsByTagName('button')[1]),
      checkbox = document.querySelector('#deposit-check'),
@@ -59,15 +59,21 @@ let calculate = document.getElementById('start'),
             adIncomeValue.value = appData.addIncome.join(', ');
             targetMonthValue.value = Math.ceil(appData.getTargetMonth());
             incomePeriodValue.value = appData.calcSavedMoney();
-
+            
+            
             periodSelect.addEventListener('input', appData.dynamicSelect);
         },
         checkStart: function(){
-            if(salaryAmount.value === ''){
-                //alert('enter number!');
-                calculate.disabled = true;
-                return;
+            //calculate.removeAttribute('disabled');
+            //calculate.setAttribute('disabled', 'true');
+             if (salaryAmount.value !== '')  {
+                console.log('поле заполнено');
+                calculate.removeAttribute('disabled');
             }
+                //console.log('поле заполнено');
+                //alert('enter number!');
+                //calculate.removeAttribute('disabled');
+            
         },
         dynamicSelect: function(){
             incomePeriodValue.value = appData.calcSavedMoney();
@@ -81,7 +87,7 @@ let calculate = document.getElementById('start'),
             }
         },
         addIncomeBlock: function(){
-            let incomeItems = document.querySelectorAll('.income-items');
+           
             let cloneIncomeItem = incomeItems[0].cloneNode(true);
             incomeItems[0].parentNode.insertBefore(cloneIncomeItem,incomeAddBtn);
             incomeItems = document.querySelectorAll('.income-items');
@@ -103,8 +109,8 @@ let calculate = document.getElementById('start'),
                 let itemIncome = item.querySelector('.income-title').value;
                 let cashIncome = item.querySelector('.income-amount').value;
                 if(itemIncome !== '' && cashIncome !== '') {
-                    appData.income = itemIncome;
-                    appData.incomeMonth = +cashIncome;
+                    appData.income[itemIncome] = cashIncome;
+                    //appData.incomeMonth = +cashIncome;
                 }
             });
         },
@@ -178,7 +184,13 @@ let calculate = document.getElementById('start'),
     periodSelect.addEventListener('input', function(){
         periodAmount.innerHTML = periodSelect.value;
     });
-   
+    salaryAmount.addEventListener('input', appData.checkStart);
+    
+    /*
+    calculate.addEventListener('click', function(event){
+        event.preventDefault();
+    });
+    */
     /*
     console.log(appData.getTargetMonth());
     console.log('Наша программа включает в себя данные');
