@@ -1,6 +1,6 @@
 'use strict';
 
-let calculate = document.getElementById('start').setAttribute('disabled', 'true'),
+let calculate = document.getElementById('start'),
      incomeAddBtn = (document.getElementsByTagName('button')[0]),
      expensesAddBtn = (document.getElementsByTagName('button')[1]),
      checkbox = document.querySelector('#deposit-check'),
@@ -25,7 +25,7 @@ let calculate = document.getElementById('start').setAttribute('disabled', 'true'
      additionalExpensesItem = document.querySelector('.additional_expenses-item'),
      incomeItems = document.querySelectorAll('.income-items'),
      periodAmount = document.querySelector('.period-amount');
-
+    
     let appData ={
         budget: 0,
         income: {},
@@ -39,6 +39,7 @@ let calculate = document.getElementById('start').setAttribute('disabled', 'true'
         budgetDay: 0,
         budgetMonth: 0,
         expensesMonth: 0,
+        //calculate: true,
         start: function (){
             appData.checkStart();
             appData.budget = +salaryAmount.value;
@@ -64,16 +65,9 @@ let calculate = document.getElementById('start').setAttribute('disabled', 'true'
             periodSelect.addEventListener('input', appData.dynamicSelect);
         },
         checkStart: function(){
-            //calculate.removeAttribute('disabled');
-            //calculate.setAttribute('disabled', 'true');
              if (salaryAmount.value !== '')  {
-                console.log('поле заполнено');
-                calculate.removeAttribute('disabled');
-            }
-                //console.log('поле заполнено');
-                //alert('enter number!');
-                //calculate.removeAttribute('disabled');
-            
+                calculate.removeAttribute('disabled'); 
+            } 
         },
         dynamicSelect: function(){
             incomePeriodValue.value = appData.calcSavedMoney();
@@ -185,6 +179,7 @@ let calculate = document.getElementById('start').setAttribute('disabled', 'true'
         periodAmount.innerHTML = periodSelect.value;
     });
     salaryAmount.addEventListener('input', appData.checkStart);
+    calculate.setAttribute('disabled', 'true');
     
     /*
     calculate.addEventListener('click', function(event){
