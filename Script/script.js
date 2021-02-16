@@ -25,7 +25,7 @@ let calculate = document.getElementById('start'),
      additionalExpensesItem = document.querySelector('.additional_expenses-item'),
      incomeItems = document.querySelectorAll('.income-items'),
      periodAmount = document.querySelector('.period-amount');
-    
+
     let appData ={
         budget: 0,
         income: {},
@@ -39,8 +39,8 @@ let calculate = document.getElementById('start'),
         budgetDay: 0,
         budgetMonth: 0,
         expensesMonth: 0,
-        //calculate: true,
         start: function (){
+            console.log(this);
             appData.checkStart();
             appData.budget = +salaryAmount.value;
             appData.getExpenses();
@@ -52,6 +52,7 @@ let calculate = document.getElementById('start'),
 
             appData.showResult();
         },
+        
         showResult: function(){
             budgetMonthValue.value = appData.budgetMonth;
             budgetDayValue.value = Math.ceil(appData.budgetDay);
@@ -60,7 +61,7 @@ let calculate = document.getElementById('start'),
             adIncomeValue.value = appData.addIncome.join(', ');
             targetMonthValue.value = Math.ceil(appData.getTargetMonth());
             incomePeriodValue.value = appData.calcSavedMoney();
-            
+            //console.log(this);
             
             periodSelect.addEventListener('input', appData.dynamicSelect);
         },
@@ -81,7 +82,7 @@ let calculate = document.getElementById('start'),
             }
         },
         addIncomeBlock: function(){
-           
+            
             let cloneIncomeItem = incomeItems[0].cloneNode(true);
             incomeItems[0].parentNode.insertBefore(cloneIncomeItem,incomeAddBtn);
             incomeItems = document.querySelectorAll('.income-items');
@@ -168,8 +169,22 @@ let calculate = document.getElementById('start'),
                     return appData.budgetMonth * periodSelect.value;
                 },
                 
-    
+                
+                
     };
+    /*
+    function hardBind(){
+        appData.start.call(appData);
+    }
+    */
+    //Привязка вызова к объекту эпДата
+    //start.apply(appData);
+    //appData.test();
+    appData.start();
+    
+    //appData.showResult();
+    //appData.addExpensesBlock();
+    
 
     start.addEventListener('click', appData.start);
     expensesAddBtn.addEventListener('click', appData.addExpensesBlock);
