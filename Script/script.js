@@ -40,10 +40,11 @@ let calculate = document.getElementById('start'),
         budgetMonth: 0,
         expensesMonth: 0,
         start: function (){
-            console.log(this);
+            //console.log(this);
+            //funcStart();
             appData.checkStart();
             appData.budget = +salaryAmount.value;
-            appData.getExpenses();
+            this.getExpenses();
             appData.getIncome();
             appData.getExpensesMonth();
             appData.getAddExpenses();
@@ -51,6 +52,7 @@ let calculate = document.getElementById('start'),
             appData.getBudget();
 
             appData.showResult();
+            //return appData.start;
         },
         
         showResult: function(){
@@ -69,6 +71,7 @@ let calculate = document.getElementById('start'),
              if (salaryAmount.value !== '')  {
                 calculate.removeAttribute('disabled'); 
             } 
+            
         },
         dynamicSelect: function(){
             incomePeriodValue.value = appData.calcSavedMoney();
@@ -172,18 +175,19 @@ let calculate = document.getElementById('start'),
                 
                 
     };
-    /*
-    function hardBind(){
-        appData.start.call(appData);
-    }
-    */
-    //Привязка вызова к объекту эпДата
-    //start.apply(appData);
-    //appData.test();
-    appData.start();
+
     
-    //appData.showResult();
-    //appData.addExpensesBlock();
+
+    function funcStart(){
+        console.log('this: ', this);
+    }
+    function hardBind(start){
+        funcStart.call(start);
+    }
+    hardBind(appData);
+    
+
+
     
 
     start.addEventListener('click', appData.start);
@@ -195,7 +199,12 @@ let calculate = document.getElementById('start'),
     });
     salaryAmount.addEventListener('input', appData.checkStart);
     calculate.setAttribute('disabled', 'true');
-    
+/*
+    function hardBind(){
+        start.call(appData);
+    }
+    hardBind();
+    */
     /*
     calculate.addEventListener('click', function(event){
         event.preventDefault();
