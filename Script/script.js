@@ -68,8 +68,8 @@ let calculate = document.getElementById('start'),
         },
         noEnterData: function(){
             
-            let i = document.querySelectorAll('input[type=text]');
-                i.forEach(el => el.setAttribute('disabled', 'disabled'));
+            let values = document.querySelectorAll('input[type=text]');
+                values.forEach(el => el.setAttribute('disabled', 'disabled'));
             incomeAddBtn.setAttribute('disabled', 'disabled');
             expensesAddBtn.setAttribute('disabled', 'disabled');
             checkbox.setAttribute('disabled', 'disabled');
@@ -119,7 +119,7 @@ let calculate = document.getElementById('start'),
                 if(itemIncome !== '' && cashIncome !== '') {
                     this.income[itemIncome] = cashIncome;
                 }
-            }.bind(this));
+            }, this); //this иначе написан!
         },
         getAddExpenses: function(){
             let addExpenses = additionalExpensesItem.value.split(',');
@@ -179,8 +179,8 @@ let calculate = document.getElementById('start'),
                     return this.budgetMonth * periodSelect.value;
                 },  
                 reset: function(){
-                    let i = document.querySelectorAll('input[type=text]');
-                    i.forEach(el => el.value = '', this);
+                    let values = document.querySelectorAll('input[type=text]');
+                    values.forEach(el => el.value = '', this);
                    
                    this.budget = 0;
                    this.budgetDay = 0;
@@ -200,8 +200,8 @@ let calculate = document.getElementById('start'),
                     cancel.style.display = 'none';
                     start.style.display = 'block';
                     
-                    let m = document.querySelectorAll('input[type=text]');
-                    m.forEach(el => el.removeAttribute('disabled'));
+                    //let values = document.querySelectorAll('input[type=text]');
+                    values.forEach(el => el.removeAttribute('disabled'));
                     incomeAddBtn.removeAttribute('disabled');
                     expensesAddBtn.removeAttribute('disabled');
                     checkbox.removeAttribute('disabled');
