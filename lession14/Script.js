@@ -6,63 +6,63 @@ function DomElement (selector, height, width, bg, fontSize) {
     this.width = width;
     this.bg = bg;
     this.fontSize = fontSize;
+
+    DomElement.prototype.newMethod = function(fb){
+        this.selector = prompt('enter');
+        if(this.selector.slice(0, 1) === '.'){
+            fb = document.createElement('div');
+            fb.className = this.selector[0];
+            fb.classList.add = this.selector.substring(1);
+            
+        } else if(this.selector.slice(0, 1) === '#'){
+            fb = document.createElement('p');
+            fb.id = this.selector[0];
+            fb = this.selector.substring(1);
+        } 
+        document.body.append(fb);
+
+        fb.style.height = this.height;
+        fb.style.width = this.width;
+        fb.style.background = this.bg;
+        fb.style.fontSize = this.fontSize;
+    };
     
-    //let elementDiv = new DomElement('.new-field', '60px', '300px', '#C0C0C0', '25px');
-    //let newField = document.querySelector('.new-field');
-    //document.querySelector('.new-field').style.cssText = `height: this.height;
-    //width: this.width;
-    //background-color: this.bg;
-    //font-size: this.fontSize;
-    //`; 
+
+    //let elementId = new DomElement('p', '50px', '250px', '#ebac0c', '25px');
+    console.log(this.selector[0]);
 }
- //let elementDiv = new DomElement('.block', '60px', '300px', '#C0C0C0', '20px');
-    //document.querySelector('.block').style.cssText = `height: elementDiv.height;
-    //width: elementDiv.width;
-    //background-color: elementDiv.bg;
-    //font-size: elementDiv.fontSize;
-    //`;
 
- let elementDiv = new DomElement('.new-field', '60px', '300px', '#C0C0C0', '25px');
-    document.querySelector('.new-field').style.height = elementDiv.height;
-    document.querySelector('.new-field').style.width = elementDiv.width;
-    document.querySelector('.new-field').style.background = elementDiv.bg;
-    document.querySelector('.new-field').style.fontSize = elementDiv.fontSize;
+console.dir(DomElement);
+//DomElement.newMethod();
+let elementDiv = new DomElement('.div', '60px', '300px', '#C0C0C0', '25px');
+elementDiv.newMethod();
+//console.log(elementId);
 
- let elementId = new DomElement('#idd', '50px', '250px', '#f07a7a', '25px');
-    console.log(elementId);
-    //elementId.newMethod();
-    document.querySelector('#idd').style.height = elementId.height;
-    document.querySelector('#idd').style.width = elementId.width;
-    document.querySelector('#idd').style.background = elementId.bg;
-    document.querySelector('#idd').style.fontSize = elementId.fontSize;
+/*
+function read(){
+    DomElement.apply(arguments);
+    let elementDiv = new read('.div', '60px', '300px', '#C0C0C0', '25px');
+    let elementId = new read('p', '50px', '250px', '#ebac0c', '25px');
+    
+}
+*/
+//let elementDiv = new Read('.div', '60px', '300px', '#C0C0C0', '25px'); 
+//let elementId = new Read('p', '50px', '250px', '#ebac0c', '25px');
 
- DomElement.prototype.newMethod = function(){
-    this.selector = prompt('enter');
-    if(this.selector[0] === '.'){
-        document.querySelector('.new-field').insertAdjacentHTML('afterbegin', '<div class="block">'  + this.selector.slice(1) + '</div>');
-    } else if(this.selector[0] === '#'){
-        document.querySelector('p').insertAdjacentHTML('afterbegin', '<p id="idd">' + this.selector.slice(1) + '</p>');
-    } else {
-        return this.newMethod();
-    }
 
+/*
+DomElement.prototype.read = function(){
+    this.div = new DomElement('.div', '60px', '300px', '#C0C0C0', '25px');
+    this.p = new DomElement('p', '50px', '250px', '#ebac0c', '25px');
 };
-DomElement.prototype.newMethod();
+//DomElement.newMethod();
+*/
+//console.log(DomElement.prototype.isPrototypeOf(div));
+//let output = new DomElement();
+//console.log('output: ', output);
 
-
+//let car1 = new DomElement();
 //console.log(car1);
-
-//let elementDiv = new DomElement('.block', '60px', '300px', '#C0C0C0', '20px');
-//сonsole.log(elementDiv);
-//elementDiv.newMethod();
-
-
-
-
-
-
-
-
 
 
 
