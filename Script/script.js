@@ -210,20 +210,20 @@ let calculate = document.getElementById('start'),
                 
     };
     AppData.prototype.eventListeners = function(){
-        start.addEventListener('click', appData.start.bind(appData));
-        expensesAddBtn.addEventListener('click', appData.addExpensesBlock.bind(appData));
-        incomeAddBtn.addEventListener('click', appData.addIncomeBlock);
+        calculate.addEventListener('click', this.start.bind(this));
+        expensesAddBtn.addEventListener('click', this.addExpensesBlock.bind(this));
+        incomeAddBtn.addEventListener('click', this.addIncomeBlock);
         periodSelect.addEventListener('input', function(){
             periodAmount.innerHTML = periodSelect.value;
         });
-        salaryAmount.addEventListener('input', appData.checkStart);
+        salaryAmount.addEventListener('input', this.checkStart);
         calculate.setAttribute('disabled', 'true');
-        cancel.addEventListener('click', appData.reset.bind(appData));
+        cancel.addEventListener('click', this.reset.bind(this));
+        
     };
     
     const appData = new AppData();
-    AppData.prototype.eventListeners();
+    appData.eventListeners();
     console.log(appData);
-    
     
     

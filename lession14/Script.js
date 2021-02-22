@@ -11,7 +11,7 @@ function DomElement (selector, height, width, bg, fontSize) {
         if(this.selector.slice(0, 1) === '.'){
             fb = document.createElement('div');
             fb.classList.add = this.selector.substring(1);
-            fb.textContent = 'nameeeee';
+            fb.textContent = 'name';
             
         } else if(this.selector.slice(0, 1) === '#'){
             fb = document.createElement('p');
@@ -23,17 +23,17 @@ function DomElement (selector, height, width, bg, fontSize) {
         fb.style.height = this.height + 'px';
         fb.style.width = this.width + 'px';
         fb.style.background = this.bg;
-        fb.style.fontSize = this.fontSize;
+        fb.style.fontSize = this.fontSize + 'px';
     };
     
 
-    //let elementId = new DomElement('p', '50px', '250px', '#ebac0c', '25px');
+    
     console.log(this.selector[0]);
 }
     //let enter = prompt('enter');
 console.dir(DomElement);
 //DomElement.newMethod();
-let elementDiv = new DomElement('.block', '60px', '300px', '#ebac0c', '25px');
+let elementDiv = new DomElement('#text', '60', '300', '#ebac0c', '25');
 elementDiv.newMethod();
 //console.log(elementId);
 
