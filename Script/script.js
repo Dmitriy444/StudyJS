@@ -49,7 +49,6 @@ let calculate = document.getElementById('start'),
 
     start (){
         console.log(this);
-        this.checkPercent();
         this.checkStart();
         this.budget = +salaryAmount.value;
         this.getExpenses();
@@ -58,6 +57,7 @@ let calculate = document.getElementById('start'),
         this.getAddExpenses();
         this.getAddIncome();
         this.getInfoDeposit();
+        this.checkPercent();
         this.getBudget();
 
         this.showResult();
@@ -81,16 +81,10 @@ let calculate = document.getElementById('start'),
         incomeAddBtn.setAttribute('disabled', 'disabled');
         expensesAddBtn.setAttribute('disabled', 'disabled');
         checkbox.setAttribute('disabled', 'disabled');
+        depositBank.setAttribute('disabled', 'true');
         
         start.style.display = 'none',
         cancel.style.display = 'block';
-    }
-    checkPercent(){
-        if(isNaN(depositPercent.value) || depositPercent.value < 0 || depositPercent.value > 100){
-            alert('Введите корректное число');
-        } else {
-            calculate.removeAttribute('disabled'); 
-        }
     }
      checkStart(){
          if (salaryAmount.value !== '')  {
@@ -164,6 +158,7 @@ let calculate = document.getElementById('start'),
         const monthDeposit = this.moneyDeposit * (this.percentDeposit / 100);
         this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
         this.budgetDay = this.budgetMonth / 30;
+        //console.log(this.percentDeposit);
     }
      getTargetMonth(){
         return amountTarget.value / this.budgetMonth;
@@ -179,7 +174,14 @@ let calculate = document.getElementById('start'),
             return('Что то пошло не так');
         }
     }
-     
+     checkPercent(){
+        if(isNaN(depositPercent.value) || depositPercent.value < 0 || depositPercent.value > 100){
+            alert('Введите корректное число');
+            calculate.setAttribute('disabled', 'true');
+        } else {
+            calculate.removeAttribute('disabled'); 
+        }
+    }
      getInfoDeposit(){
             if(this.deposit){
                     this.percentDeposit = depositPercent.value;
@@ -216,16 +218,23 @@ let calculate = document.getElementById('start'),
             incomeAddBtn.removeAttribute('disabled');
             expensesAddBtn.removeAttribute('disabled');
             checkbox.removeAttribute('disabled');
-                
+            checkbox.checked = false;
+            depositBank.style.display = 'none';
+            depositAmount.style.display = 'none';
+            depositPercent.style.display = 'none';
+            depositBank.value = '';
+            depositBank.removeAttribute('disabled');
+
     }
      changePercent(){
         const valueSelect = this.value;
+        console.log(valueSelect);
         if(valueSelect === 'other'){
             depositPercent.style.display = 'inline-block';
         } else{
             depositPercent.value = valueSelect;
             depositPercent.style.display = 'none';
-            depositPercent.value = '';
+            //depositPercent.value = '';
             
         }
     }
