@@ -44,5 +44,71 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);        
     }
     
-    countTimer('28 february 2021');
+    countTimer('2 march 2021');
+
+    // Menu
+    const toggleMenu = () => {
+        const btnMenu = document.querySelector('.menu'),
+            menu = document.querySelector('menu'),
+            closeBtn = document.querySelector('.close-btn'),
+            menuItems = document.querySelectorAll('ul>li');
+            let count = 0;
+            
+            //let start = Date.now();
+        
+        const actionMenu = () => {
+            
+            if(!menu.style.transform || menu.style.transform === `translate(-100%)`){
+                menu.style.transform = `translate(0)`;
+            } else{
+                menu.style.transform = `translate(-100%)`;
+            }
+
+            count++;
+            menu.style.left = count * 2 + 'px';
+            if(count < 950){
+                setTimeout(actionMenu, 1);
+            }
+            
+            /*
+            let timer = setInterval(function(){
+                let timePassed = Date.now() - start;
+                if(timePassed >= 2000){
+                    clearInterval(timer);
+                    return;
+                }
+                draw(timePassed);
+            }, 20);
+            function draw(){
+                menu.style.left = count + 'px'; 
+            } 
+            */
+            
+        };
+        //setTimeout(actionMenu, 10);
+    
+        console.log(menu.getBoundingClientRect());
+        btnMenu.addEventListener('click', actionMenu);
+        closeBtn.addEventListener('click', actionMenu);
+
+        menuItems.forEach((elem) => elem.addEventListener('click', actionMenu));
+    };
+    toggleMenu();
+
+    // Popup
+    const togglePopup = () => {
+        const popup = document.querySelector('.popup'),
+        popupBtn = document.querySelectorAll('.popup-btn'),
+        popupClose = document.querySelector('.popup-close');
+
+        popupBtn.forEach((elem) => {
+            elem.addEventListener('click', () => {
+                popup.style.display = 'block';
+            });
+        });
+        popupClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+    };
+    togglePopup();
 });
