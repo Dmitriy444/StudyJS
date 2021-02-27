@@ -83,7 +83,6 @@ window.addEventListener('DOMContentLoaded', function(){
                 menu.style.left = count + 'px'; 
             } 
             */
-            
         };
         //setTimeout(actionMenu, 10);
     
