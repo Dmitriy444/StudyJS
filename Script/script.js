@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function(){
                     timerSeconds.textContent = '0' + timerSeconds.textContent;
                 }
             }
-            let idInterval = setInterval(updateClock, 1000);        
+            let idInterval = setInterval(updateClock);        
     }
     
     countTimer('2 march 2021');
@@ -53,38 +53,33 @@ window.addEventListener('DOMContentLoaded', function(){
             closeBtn = document.querySelector('.close-btn'),
             menuItems = document.querySelectorAll('ul>li');
             let count = 0;
-            
-            //let start = Date.now();
         
         const actionMenu = () => {
+            let menuLeft = function(){
+                count++;
+                menu.style.left = count * 95 + 'px';
+                if(count < 10 && screen.width > 768){
+                    setTimeout(menuLeft, 10);
+                }
+            };
+            
+            let menuRight = function(){
+                count--;
+                menu.style.left = count + 'px';
+                if(count > 0 && screen.width > 768){
+                    setTimeout(menuRight);
+                }
+            };
             
             if(!menu.style.transform || menu.style.transform === `translate(-100%)`){
                 menu.style.transform = `translate(0)`;
+                menuLeft();
+                count = 0;
             } else{
                 menu.style.transform = `translate(-100%)`;
+                menuRight();
             }
-
-            count++;
-            menu.style.left = count * 2 + 'px';
-            if(count < 950){
-                setTimeout(actionMenu, 1);
-            }
-            
-            /*
-            let timer = setInterval(function(){
-                let timePassed = Date.now() - start;
-                if(timePassed >= 2000){
-                    clearInterval(timer);
-                    return;
-                }
-                draw(timePassed);
-            }, 20);
-            function draw(){
-                menu.style.left = count + 'px'; 
-            } 
-            */
         };
-        //setTimeout(actionMenu, 10);
     
         console.log(menu.getBoundingClientRect());
         btnMenu.addEventListener('click', actionMenu);
