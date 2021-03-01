@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', function(){
                     timerMinutes.textContent = timer.minutes;
                     timerSeconds.textContent = timer.seconds;
                 } else if (timer.timeRemaining <= 0){
+                    // Переделать
                     clearInterval(idInterval);
                     timerHours.textContent = 0;
                     timerMinutes.textContent = 0;
@@ -53,26 +54,30 @@ window.addEventListener('DOMContentLoaded', function(){
             closeBtn = document.querySelector('.close-btn'),
             menuItems = document.querySelectorAll('ul>li');
             let count = 0;
-        
+            let flyInterval;
+            let animate = false;
+
         const actionMenu = () => {
-            /*
-            let menuLeft = function(){
-                count++;
-                if(count < 475){
-                    menu.style.left = count * 2 + 'px';
-                } else{
-                    clearInterval(menuInterval);
-                }
-            }
-            */
             
+            let menuLeft = function(){
+                flyInterval = requestAnimationFrame(menuLeft);
+                count++;
+                if(count < 96){
+                    menu.style.left = count * 10 + 'px';
+                } else{
+                    cancelAnimationFrame(flyInterval);
+                }
+                console.log(count);
+            };  
+            /*
             let menuLeft = function(){
                 count++;
                 menu.style.left = count * 95 + 'px';
                 if(count < 10 && screen.width > 768){
-                    setTimeout(menuLeft, 10);
+                    setTimeout(menuLeft, 20);
                 } 
             };
+            */
             /*
             let menuRight = function(){
                 count--;
@@ -82,25 +87,62 @@ window.addEventListener('DOMContentLoaded', function(){
                 }
             };
             */
-            if(!menu.style.transform || menu.style.transform === `translate(-100%)`){
+           btnMenu.addEventListener('click', function(){
+            if(!menu.style.transform || menu.style.transform === `translate(-100%)` &&  menu.style.left === `0` || !animate){
                 menu.style.transform = `translate(0)`;
-                menuLeft();
+                flyInterval = requestAnimationFrame(menuLeft);
+                animate = true;
             } else{
+                animate = false;
+                menu.style.left = 0 + 'px';
                 menu.style.transform = `translate(-100%)`;
-                //clearTimeout(menuLeft);
+                cancelAnimationFrame(flyInterval);
+
+                //flyInterval = requestAnimationFrame(flyAnimate);
                 //count = 0 + 'px';
                 //menu.style.left = 0 + 'px';
                 //menuRight();
-            }
-        };
-    
-        console.log(menu.getBoundingClientRect());
-        btnMenu.addEventListener('click', actionMenu);
-        closeBtn.addEventListener('click', actionMenu);
+            }  
+           });
+           
+            closeBtn.addEventListener('click', function(){
+                if(!menu.style.transform || menu.style.transform === `translate(-100%)` &&  menu.style.left === `0` || !animate){
+                    menu.style.transform = `translate(0)`;
+                    flyInterval = requestAnimationFrame(menuLeft);
+                    animate = true;
+                } else{
+                    animate = false;
+                    menu.style.left = 0 + 'px';
+                    menu.style.transform = `translate(-100%)`;
+                    cancelAnimationFrame(flyInterval);
 
-        menuItems.forEach((elem) => elem.addEventListener('click', actionMenu));
+                    //flyInterval = requestAnimationFrame(flyAnimate);
+                }
+            });
+            menuItems.forEach((elem) => elem.addEventListener('click', function(){
+                if(!menu.style.transform || menu.style.transform === `translate(-100%)` &&  menu.style.left === `0` || !animate){
+                    menu.style.transform = `translate(0)`;
+                    flyInterval = requestAnimationFrame(menuLeft);
+                    animate = true;
+                } else{
+                    animate = false;
+                    menu.style.left = 0 + 'px';
+                    menu.style.transform = `translate(-100%)`;
+                    cancelAnimationFrame(flyInterval);
+                    
+                    //flyInterval = requestAnimationFrame(flyAnimate);
+                }
+            }));
+            
+        };
+        actionMenu();
+
+        //console.log(menu.getBoundingClientRect());
+        //btnMenu.addEventListener('click', actionMenu);
+        //closeBtn.addEventListener('click', actionMenu);
+
+        //menuItems.forEach((elem) => elem.addEventListener('click', actionMenu));
         
-        //let menuInterval = setInterval(actionMenu);
     };
 
     toggleMenu();
