@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function(){
                     timerSeconds.textContent = '0' + timerSeconds.textContent;
                 }
             }
-            let idInterval = setInterval(updateClock);        
+            let idInterval = setInterval(updateClock, 1000);        
     }
     
     countTimer('2 march 2021');
@@ -55,14 +55,25 @@ window.addEventListener('DOMContentLoaded', function(){
             let count = 0;
         
         const actionMenu = () => {
+            /*
+            let menuLeft = function(){
+                count++;
+                if(count < 475){
+                    menu.style.left = count * 2 + 'px';
+                } else{
+                    clearInterval(menuInterval);
+                }
+            }
+            */
+            
             let menuLeft = function(){
                 count++;
                 menu.style.left = count * 95 + 'px';
                 if(count < 10 && screen.width > 768){
                     setTimeout(menuLeft, 10);
-                }
+                } 
             };
-            
+            /*
             let menuRight = function(){
                 count--;
                 menu.style.left = count + 'px';
@@ -70,14 +81,16 @@ window.addEventListener('DOMContentLoaded', function(){
                     setTimeout(menuRight);
                 }
             };
-            
+            */
             if(!menu.style.transform || menu.style.transform === `translate(-100%)`){
                 menu.style.transform = `translate(0)`;
                 menuLeft();
-                count = 0;
             } else{
                 menu.style.transform = `translate(-100%)`;
-                menuRight();
+                //clearTimeout(menuLeft);
+                //count = 0 + 'px';
+                //menu.style.left = 0 + 'px';
+                //menuRight();
             }
         };
     
@@ -86,7 +99,10 @@ window.addEventListener('DOMContentLoaded', function(){
         closeBtn.addEventListener('click', actionMenu);
 
         menuItems.forEach((elem) => elem.addEventListener('click', actionMenu));
+        
+        //let menuInterval = setInterval(actionMenu);
     };
+
     toggleMenu();
 
     // Popup
