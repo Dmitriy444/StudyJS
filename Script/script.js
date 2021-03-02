@@ -16,9 +16,6 @@ window.addEventListener('DOMContentLoaded', function(){
                     hours = Math.floor(timeRemaining / 60 / 60);
                     return {timeRemaining, hours, minutes, seconds};
             }
-            //function clearTimer(){
-            //    clearInterval(idInterval);
-            //}
             function updateClock(){
                 let timer = getTimeRemaining();
 
@@ -44,6 +41,7 @@ window.addEventListener('DOMContentLoaded', function(){
                     timerSeconds.textContent = '0' + timerSeconds.textContent;
                 }
             }
+            updateClock();
             let idInterval = setInterval(updateClock, 1000);       
     }
     
