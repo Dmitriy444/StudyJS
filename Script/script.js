@@ -45,22 +45,33 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);       
     }
     
-    countTimer('3 march 2021');
+    countTimer('4 march 2021');
 
     // Menu
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
             menu = document.querySelector('menu'),
             closeBtn = document.querySelector('.close-btn'),
-            menuItems = document.querySelectorAll('ul>li');
+            menuElems = document.querySelectorAll('.active-menu');
 
         const actionMenu = () => {
             menu.classList.toggle('active-menu');
         };
+        
+        menu.addEventListener('click', (event)=>{
+            let target = event.target;
+            if(target.classList.contains('close-btn')){
+                menu.classList.remove('active-menu');
+            } else {
+                target = target.closest('a');
+                if(target){
+                    menu.classList.remove('active-menu');
+                }
+            }
+        });
+        
         console.log(menu.getBoundingClientRect());
         btnMenu.addEventListener('click', actionMenu);
-        closeBtn.addEventListener('click', actionMenu);
-        menuItems.forEach((elem) => elem.addEventListener('click', actionMenu));
     };
 
     toggleMenu();
@@ -68,21 +79,18 @@ window.addEventListener('DOMContentLoaded', function(){
     // Popup
     const togglePopup = () => {
         const popup = document.querySelector('.popup'),
-        popupBtn = document.querySelectorAll('.popup-btn'),
-        popupClose = document.querySelector('.popup-close'),
-        popupContent = document.querySelector('.popup-content');
-
+            popupBtn = document.querySelectorAll('.popup-btn'),
+            popupContent = document.querySelector('.popup-content');
     let count = 0;
     
-    let popupDown = function(){
+    let popupDown = () => {
         count++;
         if(count < 60 && screen.width > 768){
             popupContent.style.top = count + 'px';
             setTimeout(popupDown);
         }
     };
-    
-    let popupUp = function(){
+    let popupUp = () => {
         count--;
         if(count > 0){
             popupContent.style.top = count + 'px';
@@ -90,16 +98,57 @@ window.addEventListener('DOMContentLoaded', function(){
         }
     };  
     
+    popup.addEventListener('click', (event)=>{
+        let target = event.target;
+
+        if(target.classList.contains('popup-close')){
+            popup.style.display = 'none';
+            popupUp();
+        } else{
+            target = target.closest('.popup-content');
+            if(!target){
+                popup.style.display = 'none';
+            }
+        }
+    })
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
                 popup.style.display = 'block';
                 popupDown();
             });
         });
-        popupClose.addEventListener('click', () => {
-            popup.style.display = 'none';
-            popupUp();
-        });
     };
     togglePopup();
+
+    // Tabs
+    const tabs = () => {
+        const tabHeader = document.querySelector('.service-header'),
+            tab = tabHeader.querySelectorAll('.service-header-tab'),
+            tabContent = document.querySelectorAll('.service-tab');
+            
+        const toggleTabContent = (index) => {
+            for(let i = 0; i < tabContent.length; i++){
+                if(index === i){
+                    tab[i].classList.add('active');
+                    tabContent[i].classList.remove('d-none');
+                } else{
+                    tab[i].classList.remove('active');
+                    tabContent[i].classList.add('d-none');
+                }
+            }
+        };
+        tabHeader.addEventListener('click', (event) => {
+            let target = event.target;
+
+            target = target.closest('.service-header-tab');
+            if(target){
+                tab.forEach((item, i) => {
+                    if(item === target){
+                        toggleTabContent(i);
+                    }
+                });
+            }
+        });
+    };
+    tabs();
 });
