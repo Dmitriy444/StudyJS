@@ -70,7 +70,6 @@ window.addEventListener('DOMContentLoaded', function(){
             }
         });
         
-        console.log(menu.getBoundingClientRect());
         btnMenu.addEventListener('click', actionMenu);
     };
 
@@ -168,7 +167,6 @@ window.addEventListener('DOMContentLoaded', function(){
             const pDots = document.createElement('li');
                 pDots.classList.add('dot');
                 portfolioDots.append(pDots);
-                console.log(pDots );
                 }
             };
             dotsPlus();
