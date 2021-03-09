@@ -294,7 +294,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // Connect
     const connect = () => {
-        const userName = document.querySelector('.form2-name'),
+        let userName = document.querySelector('.top-form'),
             userDataForms = document.querySelector('.footer-form'),
             userFooterEmail = document.querySelector('.form-email'),
             userFooterPhone = document.querySelector('.form-phone'),
@@ -302,24 +302,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
             footerForm = document.querySelector('.footer-form'),
             userMessage = document.querySelector('.mess');
-       /*
-       const inputName = (elem) => {
-            elem.value = elem.value.replace(/[^а-яА-ЯёЁ\- ]/g, '');
-       }
-        const footerInputs = () => {
-            footerForms.addEventListener('input', (event) => {
-                let target = event.target;
 
-                if(target.tagName === 'FORM2-NAME'){
-                    inputName();
-                }
-            });
-        };
-        */
+   
         const userMessageInput = () => {
-            //userMessage.addEventListener('input', () => {
                 userMessage.value = userMessage.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
-            //});
         };
 
         const userFooterEmailInput = () =>{
@@ -340,15 +326,12 @@ window.addEventListener('DOMContentLoaded', function(){
         
         const userNameInput = () => {
             userName.value = userName.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
-            //userName.onblur = function() {
-            //    let yt = userName.value.match(/[\d]/g);
-            //    console.log(yt);
-            //}
+            userName.onblur = () => {
+                let nameName = userName.value.replace(/(^|\s)\S/g, (match) => {return match.toUpperCase()});
+                userName.innerHTML = nameName;
+               console.log(userName.input);
+            }
         };
-
-        footerForm.addEventListener('input', () => {
-            //console.log(event.target);
-        });
 
         footerForm.addEventListener('input', (event) => {
             //console.log(event.target);
@@ -358,11 +341,13 @@ window.addEventListener('DOMContentLoaded', function(){
                 console.log(event.target);
             } else if(event.target.classList.contains('form-email')){
                 userFooterEmailInput();
+                console.log(event.target);
             } else if (event.target.classList.contains('form-phone')){
                 userFooterPhoneInput();
                 console.log(event.target);
-            } else if(event.target.classList.contains('form2-name')){
+            } else if (event.target.classList.contains('top-form')){
                 userNameInput();
+                console.log(event.target);
             }
         });
         
