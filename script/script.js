@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);       
     }
     
-    countTimer('10 march 2021');
+    countTimer('11 march 2021');
 
     // Menu
     const toggleMenu = () => {
@@ -247,28 +247,26 @@ window.addEventListener('DOMContentLoaded', function(){
     
     // Team
     const teamImage = () => {
-        const photo = document.querySelectorAll('.command__photo'),
-            firstPhoto = document.querySelectorAll('.command__photo.src');
-        //photo.forEach((photo, event) => {
-        //    const photoOne = event.target.src;
-        //    photo[i].addEventListener('mouseenter', (event) => {
-        //        event.target.src = event.target.dataset.img;
-        //    })
-        //});
-        console.log(firstPhoto);
-        for (let i = 0; i < photo.length; i++){
-            
-            photo[i].addEventListener('mouseenter', (event) => {
-                const photoOne = event.target.src;
+        let command = document.querySelector('.command');
+
+        command.addEventListener('mouseover', (event) => {
+            let target = event.target;
+            const photoOne = event.target.src;
+
+            if(target.closest('.command__photo')){
                 event.target.src = event.target.dataset.img;
-                //event.target.dataset.img = event.target.src;
-                photo[i].addEventListener('mouseleave', (event) => {
-                    event.target.dataset.img = photoOne;
-                });
-            });  
-            
-        }
-       
+                event.target.dataset.img = photoOne;
+            }
+        });
+        command.addEventListener('mouseout', (event) => {
+            let target = event.target;
+            const photoTwo = event.target.src;
+
+            if(target.closest('.command__photo')){
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = photoTwo;
+            }
+        });
     };
     teamImage();
     
@@ -276,18 +274,19 @@ window.addEventListener('DOMContentLoaded', function(){
     const calculate = () => {
         const square = document.querySelector('.calc-square'),
             premises = document.querySelector('.calc-count'),
-            workDays = document.querySelector('.calc-day');
+            workDays = document.querySelector('.calc-day'),
+            calcBlock = document.querySelector('.calc-block');
 
-            // Делегирование
-
-        square.addEventListener('input', () => {
-            square.value = square.value.replace(/\D/g, '');
-        });
-        premises.addEventListener('input', () => {
-            premises.value = premises.value.replace(/\D/g, '');
-        });
-        workDays.addEventListener('input', () => {
-            workDays.value = workDays.value.replace(/\D/g, '');
+        calcBlock.addEventListener('input', (event) => {
+            let target = event.target;
+            
+            if(target === square){
+                target.value = square.value.replace(/\D/g, '');
+            } else if(target === premises){
+                premises.value = premises.value.replace(/\D/g, '');
+            } else if(target === workDays){
+                workDays.value = workDays.value.replace(/\D/g, '');
+            }
         });
     }
     calculate();
@@ -303,7 +302,7 @@ window.addEventListener('DOMContentLoaded', function(){
             footerForm = document.querySelector('.footer-form'),
             userMessage = document.querySelector('.mess');
 
-   
+        /*
         const userMessageInput = () => {
                 userMessage.value = userMessage.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
         };
@@ -315,11 +314,11 @@ window.addEventListener('DOMContentLoaded', function(){
                 console.log(abv);
             }
         };
-
+        
         const userFooterPhoneInput = () => {
-            userFooterPhone.value = userFooterPhone.value.replace(/[^0-9-\(\)]/g, ''); 
+            userFooterPhone.value = userFooterPhone.value.replace(/[^+-)(0-9 ]$/, ''); 
             userFooterPhone.onblur = function() {
-            let bv = userFooterPhone.value.match(/\+?[78]\-?(\d){3,10}\-?(\d){2,4}\-?(\d){2}/, '')
+            let bv = userFooterPhone.value.replace(/\+?[78]\-?(\d){3,10}\-?(\d){2,4}\-?(\d){2}/, '')
                 console.log(bv);
             }
         };
@@ -328,27 +327,36 @@ window.addEventListener('DOMContentLoaded', function(){
             userName.value = userName.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
             userName.onblur = () => {
                 let nameName = userName.value.replace(/(^|\s)\S/g, (match) => {return match.toUpperCase()});
-                userName.innerHTML = nameName;
-               console.log(userName.input);
+                //userName = nameName;
+               console.log(nameName);
             }
         };
-
-        footerForm.addEventListener('input', (event) => {
+        */
+        footerForms.addEventListener('input', (event) => {
+            let target = event.target;
             //console.log(event.target);
 
-            if(event.target.classList.contains('mess')){
-                userMessageInput();
-                console.log(event.target);
-            } else if(event.target.classList.contains('form-email')){
-                userFooterEmailInput();
-                console.log(event.target);
-            } else if (event.target.classList.contains('form-phone')){
-                userFooterPhoneInput();
-                console.log(event.target);
-            } else if (event.target.classList.contains('top-form')){
-                userNameInput();
-                console.log(event.target);
+            if(target.matches('input[name = "user_phone"]')){
+                target.value = target.value.replace(/[^+-)(0-9 ]$/, '');
+
+            } else if(target.matches('input[name = "user_message"]')){
+                target.value = target.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
+
+            } else if(target.matches('input[name = "user_name"]')){
+                target.value = target.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
+                
+                userName.onblur = () => {
+                    let nameName = userName.value.replace(/(^|\s)\S/g, (match) => {return match.toUpperCase()});
+                    //userName = nameName;
+                   console.log(nameName);
+                }
+
+            }  else if(target.matches('input[name = "user_email"]')){
+                userFooterEmail.value = userFooterEmail.value.replace(/^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(\.\*@.+(\..{1,11})?)$/g);
+                // /^([\w\d\_\-]+@[] )
             }
+
+             
         });
         
         //userName.addEventListener('input', () => {
