@@ -293,39 +293,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // Connect
     const connect = () => {
-        let footerForms = document.querySelector('.connect');
+        let forms = document.querySelector('body');
+       
 
-        /*
-        const userMessageInput = () => {
-                userMessage.value = userMessage.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
-        };
-
-        const userFooterEmailInput = () =>{
-            userFooterEmail.value = userFooterEmail.value.replace(/[^a-zA-Z0-9_\-\.\!\~\*\'\@]/g, '');
-            userFooterEmail.onblur = function(){
-                let abv = userFooterEmail.value.match(/\w+\-?\w+@\w+\.\w{2,3}/, '')
-                console.log(abv);
-            }
-        };
-        
-        const userFooterPhoneInput = () => {
-            userFooterPhone.value = userFooterPhone.value.replace(/[^+-)(0-9 ]$/, ''); 
-            userFooterPhone.onblur = function() {
-            let bv = userFooterPhone.value.replace(/\+?[78]\-?(\d){3,10}\-?(\d){2,4}\-?(\d){2}/, '')
-                console.log(bv);
-            }
-        };
-        
-        const userNameInput = () => {
-            userName.value = userName.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
-            userName.onblur = () => {
-                let nameName = userName.value.replace(/(^|\s)\S/g, (match) => {return match.toUpperCase()});
-                //userName = nameName;
-               console.log(nameName);
-            }
-        };
-        */
-        footerForms.addEventListener('input', (event) => {
+        forms.addEventListener('input', (event) => {
             let target = event.target;
 
             if(target.matches('input[name = "user_phone"]')){
@@ -344,7 +315,7 @@ window.addEventListener('DOMContentLoaded', function(){
              
         }, true);
 
-        footerForms.addEventListener('blur', (event) => {
+        forms.addEventListener('blur', (event) => {
             let target = event.target;
 
             if (target.matches('input[name = "user_name"]')){
