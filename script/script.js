@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);       
     }
     
-    countTimer('11 march 2021');
+    countTimer('12 march 2021');
 
     // Menu
     const toggleMenu = () => {
@@ -293,14 +293,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // Connect
     const connect = () => {
-        let userName = document.querySelector('.top-form'),
-            userDataForms = document.querySelector('.footer-form'),
-            userFooterEmail = document.querySelector('.form-email'),
-            userFooterPhone = document.querySelector('.form-phone'),
-            footerForms = document.querySelector('.connect'),
-
-            footerForm = document.querySelector('.footer-form'),
-            userMessage = document.querySelector('.mess');
+        let footerForms = document.querySelector('.connect');
 
         /*
         const userMessageInput = () => {
@@ -334,10 +327,9 @@ window.addEventListener('DOMContentLoaded', function(){
         */
         footerForms.addEventListener('input', (event) => {
             let target = event.target;
-            //console.log(event.target);
 
             if(target.matches('input[name = "user_phone"]')){
-                target.value = target.value.replace(/[^+-)(0-9 ]$/, '');
+                target.value = target.value.replace(/[^+\-\)\(0-9 ]$/, '');
 
             } else if(target.matches('input[name = "user_message"]')){
                 target.value = target.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
@@ -345,32 +337,31 @@ window.addEventListener('DOMContentLoaded', function(){
             } else if(target.matches('input[name = "user_name"]')){
                 target.value = target.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
                 
-                userName.onblur = () => {
-                    let nameName = userName.value.replace(/(^|\s)\S/g, (match) => {return match.toUpperCase()});
-                    //userName = nameName;
-                   console.log(nameName);
-                }
-
             }  else if(target.matches('input[name = "user_email"]')){
-                userFooterEmail.value = userFooterEmail.value.replace(/^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(\.\*@.+(\..{1,11})?)$/g);
-                // /^([\w\d\_\-]+@[] )
+                target.value = target.value.replace(/[^A-Za-z0-9/!~.*@'-_]/, '');
             }
 
              
-        });
-        
-        //userName.addEventListener('input', () => {
-        //    userName.value = userName.value.replace(/[^а-яА-ЯёЁ\- ]/g, '' (match)=> match.toUpperCase());
-            /*
-            userName.onblur = function(){
-                let ff = userName.value.match()
-            }
-            */
-        //});
-        
+        }, true);
 
-        
-        //footerInputs();
+        footerForms.addEventListener('blur', (event) => {
+            let target = event.target;
+
+            if (target.matches('input[name = "user_name"]')){
+               target.value = target.value.replace(/ +/g, ' ').trim();
+                    target.value = target.value.replace(/([А-ЯЁ])/g, x => x.toLowerCase());
+                    target.value = target.value.replace(/(( |^)[а-яё])(?=[а-яё])/g, x => x.toUpperCase());
+
+            } else if (target.matches('input[name = "user_phone"]')){
+                target.value = target.value.match(/\+?[78]([-()]*\d){10}/g);
+
+            } 
+            else if (target.matches('input[name = "user_email"]')){
+                target.value = target.value.match(/\w+\-?\w+@\w+\.\w{2,3}/g);
+            }
+
+        }, true);
+       
     };
     connect();
 });
