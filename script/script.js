@@ -44,7 +44,11 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);       
     }
     
+<<<<<<< HEAD
     countTimer('15 march 2021');
+=======
+    countTimer('13 march 2021');
+>>>>>>> e1cf73708a3cca29f70dd8a8afba24433c57f07e
 
     // Menu
     const toggleMenu = () => {
