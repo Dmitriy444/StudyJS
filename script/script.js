@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);       
     }
     
-    countTimer('14 march 2021');
+    countTimer('15 march 2021');
 
     // Menu
     const toggleMenu = () => {
@@ -335,18 +335,17 @@ window.addEventListener('DOMContentLoaded', function(){
             let target = event.target;
 
             if(target.matches('input[name = "user_phone"]')){
-                target.value = target.value.replace(/[^+\-\)\(0-9 ]$/, '');
+                target.value = target.value.replace(/[^+0-9 ]$/, '');
 
             } else if(target.matches('input[name = "user_message"]')){
-                target.value = target.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
+                target.value = target.value.replace(/[^?!:;",.а-яА-ЯёЁ0-9\s]+$/, '');
 
             } else if(target.matches('input[name = "user_name"]')){
-                target.value = target.value.replace(/[^а-яА-ЯёЁ\- ]/, '');
+                target.value = target.value.replace(/[^а-яА-ЯёЁ0-9 ]/, '');
                 
             }  else if(target.matches('input[name = "user_email"]')){
                 target.value = target.value.replace(/[^A-Za-z0-9/!~.*@'-_]/, '');
             }
-
              
         }, true);
 
@@ -365,9 +364,7 @@ window.addEventListener('DOMContentLoaded', function(){
             else if (target.matches('input[name = "user_email"]')){
                 target.value = target.value.match(/\w+\-?\w+@\w+\.\w{2,3}/g);
             }
-
         }, true);
-       
     };
     connect();
 
@@ -377,24 +374,142 @@ window.addEventListener('DOMContentLoaded', function(){
             loadMessage = 'Загрузка...',
            successMessage = 'Спасибо! Мы скоро с вами свяжемся.'; 
         
-        const form = document.getElementById('form1');
-
+        const form = document.getElementById('form1'),
+            formName1 = document.getElementById('form1-name'),
+            formEmail1 = document.getElementById('form1-email'),
+            formPhone1 = document.getElementById('form1-phone');
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem';
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.append(statusMessage);
-
-            const request = new XMLHttpRequest();
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'multipart/form-data');
-            
+            statusMessage.textContent = loadMessage;
             const formData = new FormData(form);
-            request.send(formData);
+            let body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
+            postData(body, () => {
+                statusMessage.textContent = successMessage;
+            }, (error) => {
+                statusMessage.textContent = errorMessage;
+                console.error(error)
+            });
+            formName1.value = '';
+            formEmail1.value = '';
+            formPhone1.value = '';
+        });
 
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', () => {
+
+                if(request.readyState !== 4) {
+                    return;
+                } 
+                if(request.status === 200) {
+                    outputData();
+                } else {
+                    errorData();
+                }
+            });
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+
+            request.send(JSON.stringify(body));
+        } 
+
+    };  
+    sendForm();
+
+    // send ajax form3 Popup
+    const sendFormPopup = () => {
+        const form3 = document.getElementById('form3'),
+            formName3 = document.getElementById('form3-name'),
+            formPhone3 = document.getElementById('form3-phone'),
+            formEmail3 = document.getElementById('form3-email');
+        
+        form3.addEventListener('submit', (event) => {
+            event.preventDefault();
+            alert('загрузка');
+            const form3Data = new FormData(form3);
+            let body3 = {};
+            form3Data.forEach((value, key) => {
+                body3[key] = value;
+            });
+            post3Data(body3, () => {
+                alert('Спасибо! Мы скоро с вами свяжемся.');
+            }, (error) => {
+                alert('Что то пошло не так');
+                console.error(error)
+            });
+            formName3.value = '';
+            formPhone3.value = '';
+            formEmail3.value = '';
+        });
+
+        const post3Data = (body3, output3Data, error3Data) => {
+            const request3 = new XMLHttpRequest();
+            request3.addEventListener('readystatechange', () => {
+                if(request3.readyState !== 4) {
+                    return;
+                }
+                if(request3.status === 200) {
+                    output3Data();
+                } else {
+                    error3Data(request3.status);
+                }
+            });
+            request3.open('POST', './server.php');
+            request3.setRequestHeader('Content-Type', 'application/json');
+            request3.send(JSON.stringify(body3));
+        };
+    };
+    sendFormPopup();
+
+
+    // send-ajax-form2  Contact
+    const sendFormContact = () => {
+        const loadMessage2 = 'Ждём ответа...',
+            errorMessage2 = 'Не работает',
+            successMessage2 = 'Отлично!';
+
+        const form2 = document.getElementById('form2'),
+            formName = document.getElementById('form2-name'),
+            formEmail = document.getElementById('form2-email'),
+            formPhone = document.getElementById('form2-phone'),
+            formMessage = document.getElementById('form2-message');
+        const statusMessage2 = document.createElement('div');
+        statusMessage2.style.cssText  = 'font-size: 2rem';
+
+        form2.addEventListener('submit', (event) => {
+            event.preventDefault();
+            form2.append(statusMessage2);
+            statusMessage2.textContent = loadMessage2;
+
+            const request2 = new XMLHttpRequest();
+            request2.open('POST', './server.php');
+            request2.setRequestHeader('Content-Type', 'multipart/from-data'); //application/json
+            const form2Data = new FormData(form2);
+            request2.send(form2Data);
+
+            request2.addEventListener('readystatechange', ()=>{
+                if(request2.readyState !== 4) {
+                    return;
+                }
+                if(request2.status === 200) {
+                    statusMessage2.textContent = successMessage2;
+                } else {
+                    statusMessage2.textContent = errorMessage2;
+                }
+            });
+            formName.value = '';
+            formEmail.value = '';
+            formPhone.value = '';
+            formMessage.value = '';
         });
 
     };
-    sendForm();
+    sendFormContact();
 });
