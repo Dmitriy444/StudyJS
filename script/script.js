@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded', function(){
             let idInterval = setInterval(updateClock, 1000);       
     }
     
-    countTimer('15 march 2021');
+    countTimer('16 march 2021');
 
     // Menu
     const toggleMenu = () => {
@@ -401,24 +401,32 @@ window.addEventListener('DOMContentLoaded', function(){
             formPhone1.value = '';
         });
 
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
+        const postData = (body) => {
 
-                if(request.readyState !== 4) {
-                    return;
-                } 
-                if(request.status === 200) {
-                    outputData();
-                } else {
-                    errorData();
-                }
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+    
+                    if(request.readyState !== 4) {
+                        return;
+                    } 
+                    if(request.status === 200) {
+                        statusMessage.textContent = successMessage;
+                        resolve();
+                    } else {
+                        statusMessage.textContent = errorMessage;
+                        reject(request.status);
+                    }
+                });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+    
+                request.send(JSON.stringify(body));
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            request.send(JSON.stringify(body));
-        } 
+        }; 
+        const promise = postData();
+        promise.then()
+            .catch(error => console.error(error));
 
     };  
     sendForm();
@@ -478,7 +486,7 @@ window.addEventListener('DOMContentLoaded', function(){
         };
         const promise3 = post3Data();
         promise3.then()
-            .catch(error => console.error(error))
+            .catch(error => console.error(error));
     };
     sendFormPopup();
 
@@ -507,7 +515,7 @@ window.addEventListener('DOMContentLoaded', function(){
             formData2.forEach((val, key) => {
                 body2[key] = val;
             });
-            postData2(body, () => {
+            postData2(body2, () => {
                 statusMessage2.textContent = successMessage2;
             }, (error) => {
                 statusMessage2.textContent = errorMessage2;
@@ -519,22 +527,32 @@ window.addEventListener('DOMContentLoaded', function(){
             formMessage.value = '';
         });
 
-    const postData2 = (body, outputData2, errorData2) => {
-        const request2 = new XMLHttpRequest();
-        request2.addEventListener('readystatechange', ()=>{
-            if(request2.readyState !== 4) {
-                return;
-            }
-            if(request2.status === 200) {
-                outputData2();
-            } else {
-                errorData2();
-            }
+    const postData2 = (body) => {
+
+        return new Promise((resolve, reject) => {
+            const request2 = new XMLHttpRequest();
+            request2.addEventListener('readystatechange', ()=>{
+                if(request2.readyState !== 4) {
+                    return;
+                }
+                if(request2.status === 200) {
+                    statusMessage2.textContent = successMessage2;
+                    resolve();
+                } else {
+                    statusMessage2.textContent = errorMessage2;
+                    reject(request2.status);
+                }
+            });
+            request2.open('POST', './server.php');
+            request2.setRequestHeader('Content-Type', 'application/json');
+            request2.send(JSON.stringify(body));
         });
-        request2.open('POST', './server.php');
-        request2.setRequestHeader('Content-Type', 'application/json');
-        request2.send(JSON.stringify(body));
-    }
+
     };
+    const promise2 = postData2();
+    promise2.then()
+        .catch(error => console.error(error));
+    };
+
     sendFormContact();
 });
