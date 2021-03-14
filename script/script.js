@@ -425,46 +425,60 @@ window.addEventListener('DOMContentLoaded', function(){
 
     // send ajax form3 Popup
     const sendFormPopup = () => {
+        const loadMessage3 = 'Отправка данных.',
+            successMessage3 = 'Данные отправлены! Мы скоро с Вами свяжемся.',
+            errorMessage3 = 'Что то пошло не так';
         const form3 = document.getElementById('form3'),
             formName3 = document.getElementById('form3-name'),
             formPhone3 = document.getElementById('form3-phone'),
             formEmail3 = document.getElementById('form3-email');
+        const statusMessage3 = document.createElement('div');
+        statusMessage3.style.cssText = 'color: white';
         
         form3.addEventListener('submit', (event) => {
             event.preventDefault();
-            alert('загрузка');
+            form3.append(statusMessage3);
+            statusMessage3.textContent = loadMessage3;
             const form3Data = new FormData(form3);
             let body3 = {};
             form3Data.forEach((value, key) => {
                 body3[key] = value;
             });
             post3Data(body3, () => {
-                alert('Спасибо! Мы скоро с вами свяжемся.');
+                statusMessage3.textContent = successMessage3;
             }, (error) => {
-                alert('Что то пошло не так');
+                statusMessage3.textContent = errorMessage3;
                 console.error(error)
             });
             formName3.value = '';
             formPhone3.value = '';
             formEmail3.value = '';
         });
+        
+        const post3Data = (body3) => {
 
-        const post3Data = (body3, output3Data, error3Data) => {
-            const request3 = new XMLHttpRequest();
-            request3.addEventListener('readystatechange', () => {
-                if(request3.readyState !== 4) {
-                    return;
-                }
-                if(request3.status === 200) {
-                    output3Data();
-                } else {
-                    error3Data(request3.status);
-                }
+            return new Promise((resolve, reject) => {
+                const request3 = new XMLHttpRequest();
+                request3.addEventListener('readystatechange', () => {
+                    if(request3.readyState !== 4) {
+                        return;
+                    }
+                    if(request3.status === 200) {
+                        statusMessage3.textContent = successMessage3;
+                        resolve();
+                    } else {
+                        statusMessage3.textContent = errorMessage3;
+                        reject(request3.status);
+                    }
+                });
+                request3.open('POST', './server.php');
+                request3.setRequestHeader('Content-Type', 'application/json');
+                request3.send(JSON.stringify(body3));
             });
-            request3.open('POST', './server.php');
-            request3.setRequestHeader('Content-Type', 'application/json');
-            request3.send(JSON.stringify(body3));
         };
+        const promise3 = post3Data();
+        promise3.then()
+            .catch(error => console.error(error))
     };
     sendFormPopup();
 
@@ -488,21 +502,16 @@ window.addEventListener('DOMContentLoaded', function(){
             form2.append(statusMessage2);
             statusMessage2.textContent = loadMessage2;
 
-            const request2 = new XMLHttpRequest();
-            request2.open('POST', './server.php');
-            request2.setRequestHeader('Content-Type', 'multipart/from-data'); //application/json
-            const form2Data = new FormData(form2);
-            request2.send(form2Data);
-
-            request2.addEventListener('readystatechange', ()=>{
-                if(request2.readyState !== 4) {
-                    return;
-                }
-                if(request2.status === 200) {
-                    statusMessage2.textContent = successMessage2;
-                } else {
-                    statusMessage2.textContent = errorMessage2;
-                }
+            const formData2 = new FormData(form2);
+            let body2 = {};
+            formData2.forEach((val, key) => {
+                body2[key] = val;
+            });
+            postData2(body, () => {
+                statusMessage2.textContent = successMessage2;
+            }, (error) => {
+                statusMessage2.textContent = errorMessage2;
+                console.error(error)
             });
             formName.value = '';
             formEmail.value = '';
@@ -510,6 +519,22 @@ window.addEventListener('DOMContentLoaded', function(){
             formMessage.value = '';
         });
 
+    const postData2 = (body, outputData2, errorData2) => {
+        const request2 = new XMLHttpRequest();
+        request2.addEventListener('readystatechange', ()=>{
+            if(request2.readyState !== 4) {
+                return;
+            }
+            if(request2.status === 200) {
+                outputData2();
+            } else {
+                errorData2();
+            }
+        });
+        request2.open('POST', './server.php');
+        request2.setRequestHeader('Content-Type', 'application/json');
+        request2.send(JSON.stringify(body));
+    }
     };
     sendFormContact();
 });
