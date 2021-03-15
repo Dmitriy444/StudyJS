@@ -374,18 +374,33 @@ window.addEventListener('DOMContentLoaded', function(){
             loadMessage = 'Загрузка...',
            successMessage = 'Спасибо! Мы скоро с вами свяжемся.'; 
         
-        const form = document.getElementById('form1'),
-            formName1 = document.getElementById('form1-name'),
-            formEmail1 = document.getElementById('form1-email'),
-            formPhone1 = document.getElementById('form1-phone');
+        const form = document.querySelector('body');
         const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem';
+        let formMessage = document.getElementById('form2-message');
+        statusMessage.style.cssText = `font-size: 2rem;
+        color: white;` // добавить цвет текста
 
         form.addEventListener('submit', (event) => {
+            let target = event.target;
+            if(target.matches('form1')) {
+                formName = target.querySelector('input[name = "user_name"]');
+                formEmail1 = target.querySelector('input[name = "user_email"]');
+                formPhone1 = target.querySelector('input[name = "user_phone"]');
+            } else if(target.matches('form3')) {
+                formName = target.querySelector('input[name = "user_name"]');
+                formEmail3 = target.querySelector('input[name = "user_email"]');
+                formPhone3 = target.querySelector('input[name = "user_phone"]');
+            } else if(target.matches('form2')) {
+                formName = target.querySelector('input[name = "user_name"]');
+                formEmail2 = target.querySelector('input[name = "user_email"]');
+                formPhone2 = target.querySelector('input[name = "user_phone"]');
+                formMessage2 = target.querySelector('input[name = "user_message"]');
+            }
+            
             event.preventDefault();
-            form.append(statusMessage);
+            target.append(statusMessage);
             statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
+            const formData = new FormData(target);
             let body = {};
             formData.forEach((val, key) => {
                 body[key] = val;
@@ -396,9 +411,12 @@ window.addEventListener('DOMContentLoaded', function(){
                 statusMessage.textContent = errorMessage;
                 console.error(error)
             });
-            formName1.value = '';
-            formEmail1.value = '';
-            formPhone1.value = '';
+            target.querySelector('input[name = "user_name"]').value = '';
+            target.querySelector('input[name = "user_email"]').value = '';
+            target.querySelector('input[name = "user_phone"]').value = '';
+            if(formMessage.value !== ''){
+                target.querySelector('input[name = "user_message"]').value = '';
+            }
         });
 
         const postData = (body) => {
@@ -431,128 +449,4 @@ window.addEventListener('DOMContentLoaded', function(){
     };  
     sendForm();
 
-    // send ajax form3 Popup
-    const sendFormPopup = () => {
-        const loadMessage3 = 'Отправка данных.',
-            successMessage3 = 'Данные отправлены! Мы скоро с Вами свяжемся.',
-            errorMessage3 = 'Что то пошло не так';
-        const form3 = document.getElementById('form3'),
-            formName3 = document.getElementById('form3-name'),
-            formPhone3 = document.getElementById('form3-phone'),
-            formEmail3 = document.getElementById('form3-email');
-        const statusMessage3 = document.createElement('div');
-        statusMessage3.style.cssText = 'color: white';
-        
-        form3.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form3.append(statusMessage3);
-            statusMessage3.textContent = loadMessage3;
-            const form3Data = new FormData(form3);
-            let body3 = {};
-            form3Data.forEach((value, key) => {
-                body3[key] = value;
-            });
-            post3Data(body3, () => {
-                statusMessage3.textContent = successMessage3;
-            }, (error) => {
-                statusMessage3.textContent = errorMessage3;
-                console.error(error)
-            });
-            formName3.value = '';
-            formPhone3.value = '';
-            formEmail3.value = '';
-        });
-        
-        const post3Data = (body3) => {
-
-            return new Promise((resolve, reject) => {
-                const request3 = new XMLHttpRequest();
-                request3.addEventListener('readystatechange', () => {
-                    if(request3.readyState !== 4) {
-                        return;
-                    }
-                    if(request3.status === 200) {
-                        statusMessage3.textContent = successMessage3;
-                        resolve();
-                    } else {
-                        statusMessage3.textContent = errorMessage3;
-                        reject(request3.status);
-                    }
-                });
-                request3.open('POST', './server.php');
-                request3.setRequestHeader('Content-Type', 'application/json');
-                request3.send(JSON.stringify(body3));
-            });
-        };
-        const promise3 = post3Data();
-        promise3.then()
-            .catch(error => console.error(error));
-    };
-    sendFormPopup();
-
-
-    // send-ajax-form2  Contact
-    const sendFormContact = () => {
-        const loadMessage2 = 'Ждём ответа...',
-            errorMessage2 = 'Не работает',
-            successMessage2 = 'Отлично!';
-
-        const form2 = document.getElementById('form2'),
-            formName = document.getElementById('form2-name'),
-            formEmail = document.getElementById('form2-email'),
-            formPhone = document.getElementById('form2-phone'),
-            formMessage = document.getElementById('form2-message');
-        const statusMessage2 = document.createElement('div');
-        statusMessage2.style.cssText  = 'font-size: 2rem';
-
-        form2.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form2.append(statusMessage2);
-            statusMessage2.textContent = loadMessage2;
-
-            const formData2 = new FormData(form2);
-            let body2 = {};
-            formData2.forEach((val, key) => {
-                body2[key] = val;
-            });
-            postData2(body2, () => {
-                statusMessage2.textContent = successMessage2;
-            }, (error) => {
-                statusMessage2.textContent = errorMessage2;
-                console.error(error)
-            });
-            formName.value = '';
-            formEmail.value = '';
-            formPhone.value = '';
-            formMessage.value = '';
-        });
-
-    const postData2 = (body) => {
-
-        return new Promise((resolve, reject) => {
-            const request2 = new XMLHttpRequest();
-            request2.addEventListener('readystatechange', ()=>{
-                if(request2.readyState !== 4) {
-                    return;
-                }
-                if(request2.status === 200) {
-                    statusMessage2.textContent = successMessage2;
-                    resolve();
-                } else {
-                    statusMessage2.textContent = errorMessage2;
-                    reject(request2.status);
-                }
-            });
-            request2.open('POST', './server.php');
-            request2.setRequestHeader('Content-Type', 'application/json');
-            request2.send(JSON.stringify(body));
-        });
-
-    };
-    const promise2 = postData2();
-    promise2.then()
-        .catch(error => console.error(error));
-    };
-
-    sendFormContact();
 });
