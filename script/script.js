@@ -378,7 +378,7 @@ window.addEventListener('DOMContentLoaded', function(){
         const statusMessage = document.createElement('div');
         let formMessage = document.getElementById('form2-message');
         statusMessage.style.cssText = `font-size: 2rem;
-        color: white;` // добавить цвет текста
+        color: white;`
 
         form.addEventListener('submit', (event) => {
             let target = event.target;
@@ -401,16 +401,19 @@ window.addEventListener('DOMContentLoaded', function(){
             target.append(statusMessage);
             statusMessage.textContent = loadMessage;
             const formData = new FormData(target);
-            let body = {};
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
-            postData(body, () => {
-                statusMessage.textContent = successMessage;
-            }, (error) => {
-                statusMessage.textContent = errorMessage;
-                console.error(error)
-            });
+
+            postData(formData)
+                    .then((response) => {
+                        if(response.status !== 200){
+                            throw new Error('Status network not 200.');
+                        }
+                        statusMessage.textContent = successMessage;
+                    })
+                    .catch ((error) => {
+                        statusMessage.textContent = errorMessage;
+                        console.error(error)
+                    });
+
             target.querySelector('input[name = "user_name"]').value = '';
             target.querySelector('input[name = "user_email"]').value = '';
             target.querySelector('input[name = "user_phone"]').value = '';
@@ -419,33 +422,15 @@ window.addEventListener('DOMContentLoaded', function(){
             }
         });
 
-        const postData = (body) => {
-
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-                request.addEventListener('readystatechange', () => {
-    
-                    if(request.readyState !== 4) {
-                        return;
-                    } 
-                    if(request.status === 200) {
-                        statusMessage.textContent = successMessage;
-                        resolve();
-                    } else {
-                        statusMessage.textContent = errorMessage;
-                        reject(request.status);
-                    }
-                });
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
-    
-                request.send(JSON.stringify(body));
+        const postData = (formData) => {
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: formData
             });
         }; 
-        const promise = postData();
-        promise.then()
-            .catch(error => console.error(error));
-
     };  
     sendForm();
 
