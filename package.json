@@ -1,0 +1,24 @@
+{
+  "name": "3dGlo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dmitriy444/StudyJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dmitriy444/StudyJS/issues"
+  },
+  "homepage": "https://github.com/Dmitriy444/StudyJS#readme",
+  "devDependencies": {
+    "webpack": "^5.26.1",
+    "webpack-cli": "^4.5.0"
+  }
+}
