@@ -5,9 +5,12 @@ const sendForm = () => {
     
     const form = document.querySelector('body');
     const statusMessage = document.createElement('div');
+       // setTimeout(() => div.remove(), 4000);
+        //statusMessage.classList.add('status');
     let formMessage = document.getElementById('form2-message');
     statusMessage.style.cssText = `font-size: 2rem;
-    color: white;`
+    color: white;`;
+    //alert('nen');
 
     
     form.addEventListener('submit', (event) => {
@@ -30,6 +33,16 @@ const sendForm = () => {
         
         event.preventDefault();
         target.append(statusMessage);
+        setTimeout(() => statusMessage.remove(), 3000);
+        /*
+        const removeDiv = () => {
+            setTimeout(() => div.remove(), 4000);
+            //const formOne = document.getElementById('form1');
+            //formOne.parentNode.removeChild('div');
+            //alert('удалить');
+        };
+        */
+        //setTimeout(removeDiv, 3000);
         statusMessage.textContent = loadMessage;
         const formData = new FormData(target);
         let body = {};
