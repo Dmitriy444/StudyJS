@@ -33,7 +33,7 @@ const sendForm = () => {
         
         event.preventDefault();
         target.append(statusMessage);
-        
+        setTimeout(() => statusMessage.remove(), 3000);
 
         statusMessage.textContent = loadMessage;
         const formData = new FormData(target);

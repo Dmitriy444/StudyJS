@@ -1,8 +1,10 @@
 const connect = () => {
     let forms = document.querySelector('body');
+    let inputEmail = document.querySelectorAll('input[name = "user_email"]');
 
-
-    
+    inputEmail.forEach(function(item){
+        item.setAttribute('required', true);
+    });
 
     forms.addEventListener('input', (event) => {
         let target = event.target;
