@@ -33,16 +33,8 @@ const sendForm = () => {
         
         event.preventDefault();
         target.append(statusMessage);
-        setTimeout(() => statusMessage.remove(), 3000);
-        /*
-        const removeDiv = () => {
-            setTimeout(() => div.remove(), 4000);
-            //const formOne = document.getElementById('form1');
-            //formOne.parentNode.removeChild('div');
-            //alert('удалить');
-        };
-        */
-        //setTimeout(removeDiv, 3000);
+        
+
         statusMessage.textContent = loadMessage;
         const formData = new FormData(target);
         let body = {};
@@ -58,7 +50,7 @@ const sendForm = () => {
                 })
                 .catch ((error) => {
                     statusMessage.textContent = errorMessage;
-                    console.error(error)
+                    console.error(error);
                 });
 
         target.querySelector('input[name = "user_name"]').value = '';
