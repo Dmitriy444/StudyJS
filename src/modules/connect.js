@@ -1,9 +1,18 @@
 const connect = () => {
     let forms = document.querySelector('body');
     let inputEmail = document.querySelectorAll('input[name = "user_email"]');
+    let allForms = document.querySelectorAll('input');
 
     inputEmail.forEach(function(item){
         item.setAttribute('required', true);
+    });
+
+    console.log(allForms);
+
+    
+    allForms.forEach(function(item){
+        item.setAttribute('autocomplete', false);
+        item.autocomplete = 'off';
     });
 
     forms.addEventListener('input', (event) => {
@@ -13,7 +22,7 @@ const connect = () => {
             target.value = target.value.replace(/[^+0-9 ]$/, '');
 
         } else if(target.matches('input[name = "user_message"]')){
-            target.value = target.value.replace(/[^?!:;",.а-яА-ЯёЁ0-9\s]+$/, '');
+            target.value = target.value.replace(/[^?!:;",.а-яА-ЯёЁ\s]+$/, '');
 
         } else if(target.matches('input[name = "user_name"]')){
             target.value = target.value.replace(/[^а-яА-ЯёЁ0-9 ]/, '');

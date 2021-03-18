@@ -29,6 +29,7 @@ popup.addEventListener('click', (event)=>{
         target = target.closest('.popup-content');
         if(!target){
             popup.style.display = 'none';
+            popupUp();
         }
     }
 });
