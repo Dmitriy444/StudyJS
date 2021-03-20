@@ -7,8 +7,6 @@ const connect = () => {
         item.setAttribute('required', true);
     });
 
-    console.log(allForms);
-
     
     allForms.forEach(function(item){
         item.setAttribute('autocomplete', false);

@@ -5,14 +5,10 @@ const sendForm = () => {
     
     const form = document.querySelector('body');
     const statusMessage = document.createElement('div');
-       // setTimeout(() => div.remove(), 4000);
-        //statusMessage.classList.add('status');
     let formMessage = document.getElementById('form2-message');
     statusMessage.style.cssText = `font-size: 2rem;
     color: white;`;
-    //alert('nen');
 
-    
     form.addEventListener('submit', (event) => {
         
         let target = event.target;
@@ -33,7 +29,10 @@ const sendForm = () => {
         
         event.preventDefault();
         target.append(statusMessage);
-        setTimeout(() => statusMessage.remove(), 3000);
+
+        const spinner2 = document.querySelector('.sk-spinner-pulse');
+        console.log(spinner2);
+
 
         statusMessage.textContent = loadMessage;
         const formData = new FormData(target);

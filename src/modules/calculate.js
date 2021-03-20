@@ -14,6 +14,9 @@ const calculate = (price = 100) => {
         const typeValue = calcType.options[calcType.selectedIndex].value,
             squareValue = +square.value;
 
+        const time = 100,
+            step = 1;
+
             if(calcCount.value > 1){
                 countValue += (calcCount.value - 1) / 10;
             }
@@ -27,8 +30,22 @@ const calculate = (price = 100) => {
             if(typeValue && squareValue){
                 total = price * typeValue * squareValue * countValue * dayValue;
             } 
+            
+        function outNum(num) {
+            let n = 0;
+            let t = Math.round(time / (num / step));
+            let interval = setInterval(() => {
+                if(n < total){
+                    n = n + step * 10;
+                } else if(n >= total){
+                    clearInterval(interval);
+                }
 
-        totalValue.textContent = Math.round(total);
+                totalValue.textContent = Math.round(n);
+            }, t);
+        }
+        outNum(total);
+
     };
 
     calcBlock.addEventListener('change', (event) => {
