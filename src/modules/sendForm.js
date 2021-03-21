@@ -1,13 +1,19 @@
 const sendForm = () => {
     const errorMessage = 'Что то пошло не так...',
-        loadMessage = 'Загрузка...',
        successMessage = 'Спасибо! Мы скоро с вами свяжемся.'; 
     
     const form = document.querySelector('body');
     const statusMessage = document.createElement('div');
+    const imgGif = document.createElement('img');
+
     let formMessage = document.getElementById('form2-message');
     statusMessage.style.cssText = `font-size: 2rem;
     color: white;`;
+
+    //imgGif.src = 'https://i.gifer.com/GzgM.gif';
+    imgGif.src = 'https://acegif.com/wp-content/uploads/loading-37.gif';
+    imgGif.style.cssText = `width: 125px;
+    height: 110px;`;
 
     form.addEventListener('submit', (event) => {
         
@@ -29,12 +35,9 @@ const sendForm = () => {
         
         event.preventDefault();
         target.append(statusMessage);
-
-        const spinner2 = document.querySelector('.sk-spinner-pulse');
-        console.log(spinner2);
-
-
-        statusMessage.textContent = loadMessage;
+        statusMessage.append(imgGif);
+        setTimeout(() => statusMessage.remove(), 3000);
+        
         const formData = new FormData(target);
         let body = {};
         formData.forEach((val, key) => {

@@ -30,22 +30,30 @@ const calculate = (price = 100) => {
             if(typeValue && squareValue){
                 total = price * typeValue * squareValue * countValue * dayValue;
             } 
-            
-        function outNum(num) {
-            let n = 0;
-            let t = Math.round(time / (num / step));
-            let interval = setInterval(() => {
-                if(n < total){
-                    n = n + step * 10;
-                } else if(n >= total){
-                    clearInterval(interval);
-                }
-
-                totalValue.textContent = Math.round(n);
-            }, t);
-        }
-        outNum(total);
-
+        let enumeration;
+        //const num1 = function(){
+            //enumeration = requestAnimationFrame(num1);
+            function outNum(num) {
+                //requestAnimationFrame(outNum);
+    
+                let n = 0;
+                let t = Math.round(time / (num / step));
+                let interval = setInterval(() => {
+                    if(n < total){
+                        n = n + step * 40;
+                    } else if(n >= total){
+                        clearInterval(interval);
+                    }  
+    
+                    totalValue.textContent = Math.round(n);
+                }, t);
+            }
+            //cancelAnimationFrame(num1);
+            //enumeration = requestAnimationFrame(outNum);
+            outNum(total);
+        //};
+       //num1();
+        //enumeration = requestAnimationFrame(num1);
     };
 
     calcBlock.addEventListener('change', (event) => {

@@ -11,7 +11,7 @@ import connect from './modules/connect';
 import sendForm from './modules/sendForm';
 
 // Timer
-countTimer('21 march 2021');
+countTimer('22 march 2021');
 
 // Menu
 toggleMenu();
